@@ -15,7 +15,15 @@ class Solution(object):
         :rtype: TreeNode
         """
 
+        def dfs1(node):
+            if not node or node == p or node == q: return node  # 根就是最近祖先
+            left = dfs1(node.left)  # 在左子树中找p或q
+            right = dfs1(node.right)
 
+            if not left: return right  # 左子树没有，那就在右子树里
+            if not right: return left
+
+            return node
 
         def dfs(node):
             if not node or node == p or node == q: return node  # 当 root 等于p, q则直接返回 root
