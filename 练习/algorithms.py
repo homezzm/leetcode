@@ -5,6 +5,9 @@ def binary_search(li, val):  # 二分查找，必须是有序的
     pass
 
 
+# print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10))
+
+
 def bubble_sort(li):  # 冒泡排序
     pass
 
@@ -25,6 +28,12 @@ def quick_sort(li, left, right):  # 快速排序
     pass
 
 
+# li = [random.randint(0, 100000) for i in range(10000)]
+# random.shuffle(li)
+# print(li)
+# quick_sort(li, 0, len(li) - 1);
+# print(li)
+
 def sift(li, low, high):
     pass
 
@@ -39,8 +48,14 @@ def merge(li, low, mid, high):  # 规并排序
 
 def merge_sort(li, low, high):
     pass
+# li = list(range(10000))
+# random.shuffle(li)
+# print(li)
+# merge_sort(li, 0, len(li) - 1)
+# print(li)
 
 if __name__ == '__main__':
+    pass
     # li = list(range(10000))
     # random.shuffle(li)
     # print(li)
