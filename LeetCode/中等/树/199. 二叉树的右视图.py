@@ -16,40 +16,39 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
-        thinking:深度优先，只搜索右侧节点，至顶向下，
-        特判是，如果这个节点有左节点，但没有右节点，那就要放容器中添加左节点，然后在继续判断是否有右节点
-        if 有右节点：添加
-        elif 没有右节点，但有左节点，添加
-
-        bfs进队列，每一层队列中最后一个元素就是右边看到的节点
+        thinking:1.bfs进队列，每一层队列中最后一个元素就是右边看到的节点O(n) O(n)
+        2.dfs记录深度，使用根->右->左遍历 就可以保证每层都是最先访问最右边的节点的。
         """
-
-        if not root: return []
-        q, res = deque(), []
-        q.append(root)
-        while q:
-            length = len(q)
-            res.append(q[-1].val)
-            for _ in range(length):
-                node = q.popleft()
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-        return res
-
-        # res = []
-        #
-        # def dfs(node):
-        #     if not node: return
-        #     res.append(node.val)
-        #     if node.right:
-        #         dfs(node.right)
-        #     else:
-        #         dfs(node.left)
-        #
-        # dfs(root)
+        # bfs
+        # if not root: return []
+        # q, res = deque(), []
+        # q.append(root)
+        # while q:
+        #     length = len(q)
+        #     res.append(q[-1].val)
+        #     for _ in range(length):
+        #         node = q.popleft()
+        #         if node.left:
+        #             q.append(node.left)
+        #         if node.right:
+        #             q.append(node.right)
         # return res
+
+        # dfs
+        res = []
+
+        def dfs(node, depth):
+            if not node: return
+            # 如果当前节点所在深度还没有出现在res里，
+            # 说明在该深度下当前节点是第一个被访问的节点，因此将当前节点加入res中。
+            if depth == len(res):  # 其实就是一层只加一个元素，就是最右边的那个
+                res.append(node.val)
+            depth += 1
+            dfs(node.right, depth)
+            dfs(node.left, depth)
+
+        dfs(root, 0)
+        return res
 
 
 if __name__ == '__main__':
