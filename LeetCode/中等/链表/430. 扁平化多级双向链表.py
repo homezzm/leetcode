@@ -20,22 +20,22 @@ class Solution(object):
         生成多级数据结构，如下面的示例所示。
         """
         if not head: return head
-        pointer, nextPointerList = head, []
-        while pointer:
-            if pointer.child:
-                if pointer.next:
-                    nextPointerList.append(pointer.next)
-                    pointer.next.prev = None
-                pointer.next = pointer.child
-                pointer.child.prev = pointer
-                pointer.child = None
+        cur, stack = head, []
+        while cur:
+            if cur.child:
+                if cur.next:
+                    stack.append(cur.next)
+                    cur.next.prev = None
+                cur.next = cur.child
+                cur.child.prev = cur
+                cur.child = None
 
-            if not pointer.next and nextPointerList:
-                nextPointer = nextPointerList.pop()
-                pointer.next = nextPointer
-                if nextPointer:
-                    nextPointer.prev = pointer
+            if not cur.next and stack:
+                nextNode = stack.pop()
+                cur.next = nextNode
+                if nextNode:
+                    nextNode.prev = cur
 
-            pointer = pointer.next
+            cur = cur.next
         return head
 
