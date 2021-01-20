@@ -12,6 +12,8 @@ class TreeNode(object):
 
 from LeetCode.GenBTreeByList import GenBiTreeByList
 
+from collections import deque
+
 
 class Solution(object):
     def isCousins(self, root, x, y):
@@ -21,9 +23,14 @@ class Solution(object):
         :type x: int
         :type y: int
         :rtype: bool
-        通过dfs把所有节点都搞一遍
+        如果二叉树的两个节点深度相同，但父节点不同，则它们是一对堂兄弟节点。
+        媳妇思路：
+
+        我的思路：通过dfs把所有节点都搞一遍
         需要两个容器来记录每个节点的深度，与该节点的父节点
         """
+
+        # 我的思路
         depth, parNode = dict(), dict()
 
         def dfs(node, par):
@@ -48,12 +55,16 @@ class Solution(object):
         return depth[x]==depth[y] and parNode[x] != parNode[y] #深度相同 但父节点不同
 
 
-        #print(depth)
-        #print(parNode)
-
-
 if __name__ == '__main__':
-    root = helperLiCreateTree([1, 2, 3, 4])
+    # root = helperLiCreateTree([1, 2, 3, 4])
+    #
+    # solution = Solution()
+    # print(solution.isCousins(root, 4, 3))
+    t1 = TreeNode(1)
+    t2 = TreeNode(2)
+    qq = deque()
+    qq.append((t1.val, t1))
+    qq.append((t2.val, t2))
+    for queueNode, queueInx in enumerate(qq):
+        print(queueNode)
 
-    solution = Solution()
-    print(solution.isCousins(root, 4, 3))
