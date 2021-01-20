@@ -30,6 +30,26 @@ class Solution(object):
         需要两个容器来记录每个节点的深度，与该节点的父节点
         """
 
+        # if not root: return False
+        # q = deque()
+        # q.append(root)
+        # while q:
+        #     length = len(q)
+        #
+        #     if x in q and y in q:  # 如果xy在同一层
+        #         xInx = q.index(x)
+        #         yInx = q.index(y)
+        #         if (xInx // 2) == (yInx // 2):  # 如果相同则表示两个节点是同一个爹，造孽啊!
+        #             return True
+        #
+        #     for _ in range(length):
+        #         node = q.popleft()
+        #         if node.left:
+        #             q.append(node.left)
+        #         if node.right:
+        #             q.append(node.right)
+        # return False
+
         # 我的思路
         depth, parNode = dict(), dict()
 
@@ -63,8 +83,7 @@ if __name__ == '__main__':
     t1 = TreeNode(1)
     t2 = TreeNode(2)
     qq = deque()
-    qq.append((t1.val, t1))
-    qq.append((t2.val, t2))
-    for queueNode, queueInx in enumerate(qq):
-        print(queueNode)
-
+    qq.append(t1)
+    qq.append(t2)
+    f = lambda val: [i.val == val for i in enumerate(qq)]
+    print(f(2))
