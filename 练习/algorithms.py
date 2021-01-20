@@ -48,6 +48,8 @@ def merge(li, low, mid, high):  # 规并排序
 
 def merge_sort(li, low, high):
     pass
+
+
 # li = list(range(10000))
 # random.shuffle(li)
 # print(li)
