@@ -13,23 +13,25 @@ class Solution(object):
         https://leetcode-cn.com/problems/binary-tree-paths/
         :type root: TreeNode
         :rtype: List[str]
+        给定一个二叉树，返回所有从根节点到叶子节点的路径。
+        说明: 叶子节点是指没有子节点的节点。
         """
         res = []
-        self.dfs(root, "", res)
+
+        def dfs(node, path):
+            if not node: return
+
+            if not node.left and not node.right:
+                path += str(node.val)
+                res.append(path)
+
+            path += str(node.val) + "->"
+
+            dfs(node.left, path)
+            dfs(node.right, path)
+
+        dfs(root,'')
         return res
-
-    def dfs(self, root, path, res):
-        if not root: return
-
-        if not root.left and not root.right:
-            path += str(root.val)
-            res.append(path)
-            return res
-
-        path += str(root.val) + "->"
-
-        self.dfs(root.left, path, res)
-        self.dfs(root.right, path, res)
 
 
 if __name__ == '__main__':
