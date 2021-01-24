@@ -1,8 +1,10 @@
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
 class Solution(object):
     def reverseKGroup(self, head, k):
         """
@@ -19,3 +21,33 @@ class Solution(object):
         当k= 2 时，应当返回: 2->1->4->3->5
         当k= 3 时，应当返回: 3->2->1->4->5
         """
+
+        if not head or k <= 1: return head
+        prev, last, cur = head, head, head
+
+        step = 1
+        while cur:
+            if step % k == 0:
+                while prev != last:
+                    dummy = ListNode(-1)
+                    temp = prev.next
+                    prev.next = dummy
+
+                    dummy.next = prev
+                    prev = temp
+
+                prev = last.next
+
+            step += 1
+            cur = cur.next
+            last = last.next
+
+    def reverseListNode(self, head):  # 反转
+        dummy, cur = ListNode(-1), head
+        while cur:
+            tmp = cur.next
+            cur.next = dummy
+
+            dummy = cur
+            cur = tmp
+        return dummy.next
