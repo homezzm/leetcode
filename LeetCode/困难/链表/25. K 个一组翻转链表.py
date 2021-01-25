@@ -9,6 +9,7 @@ class Solution(object):
     def reverseKGroup(self, head, k):
         """
         https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+        讲解：https://www.bilibili.com/video/BV1SD4y197TK?from=search&seid=14961171138606591985
         :type head: ListNode
         :type k: int
         :rtype: ListNode
@@ -23,31 +24,23 @@ class Solution(object):
         """
 
         if not head or k <= 1: return head
-        prev, last, cur = head, head, head
+        tail = head
+        for i in range(k):  # 找到链表尾所在位置k=3 tail=4
+            if not tail: return head  # 链表的最后一段不够k的长度，就直接返回，不翻转了
+            tail = tail.next
+        # 1->2->3 to 3->2->1
+        #           |     |
+        #        newHead head
+        newHead = self.reverseListNode(head, tail)  # 翻转这个区域的链表
+        head.next = self.reverseKGroup(tail, k)  # 从1的这个位置继续往后操作4-5
+        return newHead
 
-        step = 1
-        while cur:
-            if step % k == 0:
-                while prev != last:
-                    dummy = ListNode(-1)
-                    temp = prev.next
-                    prev.next = dummy
+    def reverseListNode(self, head, tail):
+        prev = None
+        while head != tail:
+            tmp = head.next
+            head.next = prev
 
-                    dummy.next = prev
-                    prev = temp
-
-                prev = last.next
-
-            step += 1
-            cur = cur.next
-            last = last.next
-
-    def reverseListNode(self, head):  # 反转
-        dummy, cur = ListNode(-1), head
-        while cur:
-            tmp = cur.next
-            cur.next = dummy
-
-            dummy = cur
-            cur = tmp
-        return dummy.next
+            prev = head
+            head = tmp
+        return prev

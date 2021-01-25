@@ -9,11 +9,12 @@ class Solution(object):
         """
         https://leetcode-cn.com/problems/reverse-linked-list/
         """
-        oldNode = head
-        newNode = None
-        while oldNode:
-            oldNextNode = oldNode.next
-            oldNode.next = newNode
-            newNode = oldNode
-            oldNode = oldNextNode
-        return newNode
+        if not head: return head
+        pre = None
+        while head:
+            tmp = head.next
+            head.next = pre
+
+            pre = head
+            head = tmp
+        return pre
