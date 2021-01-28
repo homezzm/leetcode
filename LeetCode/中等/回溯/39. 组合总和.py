@@ -23,8 +23,6 @@ class Solution(object):
             if sumVal == target:
                 res.append(paths[:])
                 return
-            elif sumVal > target:
-                return
 
             for i in range(startIndex, len(candidates)):
                 # 一个剪枝的动作，先把列表排好序，然后提前判断下，结果是否已经大于目标值
