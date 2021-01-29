@@ -13,6 +13,7 @@ class Solution(object):
         注意，"ea" 不是符合题意的字符串，因为 'e' 在字母表中的位置比 'a' 靠后
         """
 
+        #回溯做的，效率非常差，到时候用动态规划做一次
         res = 0
         if n <= 0: return res
         li = ['a', 'e', 'i', 'o', 'u']
