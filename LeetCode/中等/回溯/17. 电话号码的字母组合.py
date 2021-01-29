@@ -24,17 +24,14 @@ class Solution(object):
                 res.append(''.join(paths))
                 return
 
-            digit = int(digits[inx])
-            letter = phoneDicts[digit]  # abc
-            count = len(letter)
-            if count == 0: return
-
-            for i in range(count):
-                paths.append(letter[i])
-                backtrack(inx + 1, paths)
+            digit = digits[inx] #找到第一个数字
+            letters = phoneDicts[int(digit)]#根据数字找到对应字母
+            for i in range(len(letters)):
+                paths.append(letters[i])
+                backtrack(inx+1,paths)
                 paths.pop()
 
-        backtrack(0, [])
+        backtrack(0,[])
         return res
 
 
