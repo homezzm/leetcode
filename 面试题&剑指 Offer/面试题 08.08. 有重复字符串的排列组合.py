@@ -10,23 +10,26 @@ class Solution(object):
 
         if not S or len(S) <= 1: return []
 
-        res = []
+        res, S, length = [], sorted(S), len(S)  # 排下序，使重复的都在一起
 
-        def backtrack(startInx, paths):
-            if len(S) == len(paths):
+        def backtrack(used, paths):
+            if length == len(paths):
                 res.append(''.join(paths))
                 return
 
-            for i in range(startInx, len(S)):
-                # 剪下支，把重复的去掉
-                if i > 0 and i > startInx and S[i] == S[i - 1]:
-                    continue
+            for i in range(length):
+                if used[i]:
+                    continue  # 已经选择过的不需要再放进去了
+                if i > 0 and S[i] == S[i - 1] and not used[i - 1]:
+                    continue  # 如果当前节点与他的前一个节点一样，并其他的前一个节点已经被遍历过了，那我们也就不需要了。
 
+                used[i] = True
                 paths.append(S[i])
-                backtrack(startInx + 1, paths)
+                backtrack(used, paths)
+                used[i] = False
                 paths.pop()
 
-        backtrack(0, [])
+        backtrack([False] * length, [])
         return res
 
 
