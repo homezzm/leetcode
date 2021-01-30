@@ -11,7 +11,7 @@ class Solution(object):
 
         if not s: return []
         res = []
-        s = sorted(s)
+        s = sorted(s)  # 排序是为了让重复的都在一起
 
         def backtrack(used, paths):
             if len(paths) == len(s):
@@ -19,11 +19,17 @@ class Solution(object):
                 return
 
             for i in range(len(s)):
-                if used[i]: continue
-                if i > 0 and s[i] == s[i - 1] and used[i - 1]: break
+                # 如果当前元素已被使用，就去看看一下个元素
+                if used[i]:
+                    continue
+
+                # 如果当前元素s[i]与上一个元素s[i - 1]相同，且上一个元素used[i - 1]被使用过
+                if i > 0 and s[i] == s[i - 1] and used[i - 1]:
+                    break
                 used[i] = True
                 paths.append(s[i])
                 backtrack(used, paths)
+                # 重置状态
                 used[i] = False
                 paths.pop()
 
