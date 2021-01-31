@@ -52,6 +52,7 @@ class Solution(object):
                 if val > target:  # 做个剪技
                     break
                 #i==startInx是第一个出现的数字 i>startInx就是第二个出现的数字
+                #去掉同一层相同的元素
                 if i > 0 and i > startInx and nums[i] == nums[i - 1]:
                     continue
                 paths.append(nums[i])
