@@ -34,6 +34,7 @@ class NestedIterator(object):
     输出: [1,1,2,1,1]
     解释: 通过重复调用next 直到hasNext 返回 false，next返回的元素的顺序应该是: [1,1,2,1,1]。
     其实就是多叉树的遍历
+    如果现在数据量非常多，那会严重影响性能，我们可以控制.hasNext()方法，让它变成有惰性的，参考的 拉不拉东
     """
 
     def __init__(self, nestedList):
@@ -42,31 +43,24 @@ class NestedIterator(object):
         :type nestedList: List[NestedInteger]
         """
         self.q = deque()
-        self.dfs(nestedList)
-
-    def dfs(self, nestedList):
-        for elem in nestedList:
-            if elem.isInteger():
-                self.q.append(elem.getInteger())
-            else:
-                self.dfs(elem.getList())
-            #我说上面给的那个类是干啥的，原来是调用那里面的方法，
-            # if type(elem) == list:
-            #     self.dfs(elem)
-            # else:
-            #     self.q.append(elem)
+        for li in nestedList: #先把所有的都放到队列中，然后在hasNext方法中依次展开
+            self.q.append(li)
 
     def next(self):
         """
         :rtype: int
         """
-        return self.q.popleft()
+        return self.q.popleft().getInteger()
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        return len(self.q)
+        while self.q and self.q[0].isInteger() == False:
+            tempLi = self.q.popleft().getList()  # 队列中第一个是列表，把他弹出并展开在放到队列里
+            for i in tempLi[::-1]: #倒序放
+                self.q.appendleft(i) #从队列头倒着放
+        return len(self.q) > 0
 
 
 # Your NestedIterator object will be instantiated and called as such:
@@ -74,10 +68,10 @@ class NestedIterator(object):
 # while i.hasNext(): v.append(i.next())
 
 if __name__ == '__main__':
-    # i = 10
-    # print(type(i) == int)
+# i = 10
+# print(type(i) == int)
 
-    i, v = NestedIterator([[1, 1], 2, [1, 1]]), []
+    i, v = NestedIterator([[1,2], 3, [4, 5]]), []
     while i.hasNext():
         v.append(i.next())
 
