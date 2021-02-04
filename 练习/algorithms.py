@@ -5,7 +5,7 @@ def binary_search(li, val):  # 二分查找，必须是有序的
     pass
 
 
-#print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 9))
+# print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 19))
 
 
 def bubble_sort(li):  # 冒泡排序
