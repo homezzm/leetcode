@@ -2,19 +2,10 @@ import random
 
 
 def binary_search(li, val):  # 二分查找，必须是有序的
-    left,right=0,len(li)-1
-    while left<=right:
-        mid= left+(right-left)//2
-        if li[mid]==val:
-            return mid
-        elif li[mid]>val:
-            right=mid-1
-        else:
-            left=mid+1
-    return None
+    pass
 
 
-print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5))
+# print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 101))
 
 
 def bubble_sort(li):  # 冒泡排序
@@ -54,7 +45,6 @@ def heap_sort(li):
 
 def merge(li, low, mid, high):  # 规并排序
     pass
-
 
 def merge_sort(li, low, high):
     pass
