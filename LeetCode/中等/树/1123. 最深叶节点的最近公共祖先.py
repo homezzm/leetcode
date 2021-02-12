@@ -16,6 +16,27 @@ class Solution(object):
         树的根节点的深度为0，如果某一节点的深度为d，那它的子节点的深度就是d+1
         如果我们假定 A 是一组节点S的 最近公共祖先，S中的每个节点都在以 A 为根节点的子树中，且 A的深度达到此条件下可能的最大值。
         """
-        if not root:return root
+        if not root: return root
 
-        #先找到最大深度
+        # 先找标记每个节点的深度
+        depth = {None: -1}
+
+        def dfs(node, parentNode):
+            if not node: return
+            depth[node] = depth[parentNode] + 1
+            dfs(node.left, node)
+            dfs(node.right, node)
+
+        dfs(root, None)
+
+        maxDepth = max(depth.values())
+
+        def answer(node):
+            #如果是空，或当前节点就是最深的节点，就将它返回
+            if not node or depth.get(node, None) == maxDepth:
+                return node
+            left, right = answer(node.left), answer(node.right)
+
+            return node if left and right else left or right
+
+        return answer(root)
